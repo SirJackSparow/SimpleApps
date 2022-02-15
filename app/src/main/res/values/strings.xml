@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">SimpleApps</string>
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="register">register</string>
+    <string name="logout">LogOut</string>
+    <string name="you_have">You Have</string>
+    <string name="account_no">Account No</string>
+    <string name="account_holder">Account Holder</string>
+    <string name="your_transaction_history">Your transaction history</string>
+    <string name="make_transfer">Make Transfer</string>
+    <string name="transfer">Transfer</string>
+    <string name="amount">amount</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="transfer_now">Transfer Now</string>
+    <string name="description">Description</string>
+    <string name="payees">Payees: </string>
+</resources>

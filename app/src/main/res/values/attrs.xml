@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LoadingButton">
+        <attr name="android:text" />
+        <attr name="android:textAllCaps" />
+        <attr name="android:enabled" />
+        <attr name="button_type" format="enum">
+            <enum name="DEFAULT" value="0" />
+            <enum name="SECONDARY" value="1" />
+        </attr>
+    </declare-styleable>
+</resources>
