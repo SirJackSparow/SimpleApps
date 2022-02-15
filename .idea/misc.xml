@@ -6,12 +6,16 @@
         <entry key="app/src/main/res/drawable/bg_balance.xml" value="0.42962962962962964" />
         <entry key="app/src/main/res/drawable/bg_oval.xml" value="0.45729166666666665" />
         <entry key="app/src/main/res/drawable/bg_oval2.xml" value="0.45729166666666665" />
+        <entry key="app/src/main/res/drawable/custom_spinner.xml" value="0.41759259259259257" />
+        <entry key="app/src/main/res/drawable/gradient_spinner.xml" value="0.18425925925925926" />
         <entry key="app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.45729166666666665" />
+        <entry key="app/src/main/res/drawable/ic_baseline_keyboard_arrow_down_24.xml" value="0.18425925925925926" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.18425925925925926" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.44114583333333335" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.44114583333333335" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.24259259259259258" />
         <entry key="app/src/main/res/layout/activity_transaction_list.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/activity_transfer.xml" value="0.24259259259259258" />
+        <entry key="app/src/main/res/layout/activity_transfer.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_history_transaction.xml" value="0.24259259259259258" />
         <entry key="app/src/main/res/layout/item_payees.xml" value="0.44114583333333335" />
         <entry key="app/src/main/res/layout/loading_button.xml" value="0.24259259259259258" />
