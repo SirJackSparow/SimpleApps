@@ -20,13 +20,16 @@ object LoadingBalance : Balance()
 data class SuccessBalance(val data: BalanceModel) : Balance()
 data class FailedBalance(val message: String) : Balance()
 
-class TrandsactionViewModel(val repoTransaction: TransactionRepo, val repoBalance: BalanceRepo) :
+class TrandsactionViewModel(
+    private val repoTransaction: TransactionRepo,
+    private val repoBalance: BalanceRepo
+) :
     ViewModel() {
 
-     val TransactionResponse = MutableLiveData<Transaction>()
-     val BalanceResponse = MutableLiveData<Balance>()
+    val TransactionResponse = MutableLiveData<Transaction>()
+    val BalanceResponse = MutableLiveData<Balance>()
 
-    fun getDataTransaction(auth:String) = viewModelScope.launch {
+    fun getDataTransaction(auth: String) = viewModelScope.launch {
         TransactionResponse.postValue(Loading)
         when (val result = repoTransaction.getTransactionData(auth)) {
             is Resource.Success -> TransactionResponse.postValue(result.data?.data?.let { Success(it) })
@@ -34,7 +37,7 @@ class TrandsactionViewModel(val repoTransaction: TransactionRepo, val repoBalanc
         }
     }
 
-    fun getDataBAlance(auth:String) = viewModelScope.launch {
+    fun getDataBAlance(auth: String) = viewModelScope.launch {
         BalanceResponse.postValue(LoadingBalance)
         when (val result = repoBalance.getBalanceData(auth)) {
             is Resource.Success -> BalanceResponse.postValue(result.data?.let { SuccessBalance(it) })

@@ -1,5 +1,6 @@
 package com.startup.simpleapps.view.transaction
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -64,14 +65,15 @@ class TransactionListActivity : BaseActivity<ActivityTransactionListBinding>() {
             navigateToTransfer(this)
         }
         bind?.logOut?.setOnClickListener {
+            CoroutineScope(Dispatchers.IO).launch {
+                dataStore.setLogin(false)
+            }
             navigateToLogin(this)
         }
-        bind?.refresh?.setOnRefreshListener(object : SwipeRefreshLayout.OnRefreshListener {
-            override fun onRefresh() {
-                onGetData()
-                bind?.refresh?.isRefreshing = false
-            }
-        })
+        bind?.refresh?.setOnRefreshListener {
+            onGetData()
+            bind?.refresh?.isRefreshing = false
+        }
     }
 
     private fun onGetData() {

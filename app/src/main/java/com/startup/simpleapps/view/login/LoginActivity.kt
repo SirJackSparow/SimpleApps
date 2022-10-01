@@ -10,6 +10,7 @@ import com.startup.simpleapps.navigation.navigateToTransaction
 import com.startup.simpleapps.utils.ButtonState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
@@ -18,8 +19,13 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     private val vm: LoginViewModel by inject()
 
     override fun onInit() {
+        CoroutineScope(Dispatchers.Main).launch {
+            if (dataStore.isLogin.first()) {
+                navigateToTransaction(this@LoginActivity)
+            }
+        }
         onAction()
-        vm.loginState.observe(this, { state ->
+        vm.loginState.observe(this) { state ->
             when (state) {
                 is Loading -> {
                     bind?.loginBtn?.setState(ButtonState.LOADING)
@@ -30,6 +36,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
                         CoroutineScope(Dispatchers.Default).launch {
                             dataStore.setToken(it)
                             dataStore.setUserName(bind?.usernameEdt?.text.toString())
+                            dataStore.setLogin(true)
                         }
                         navigateToTransaction(this)
                         Toast.makeText(this@LoginActivity, "success", Toast.LENGTH_SHORT).show()
@@ -42,7 +49,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
                         .show()
                 }
             }
-        })
+        }
     }
 
     private fun onAction() {

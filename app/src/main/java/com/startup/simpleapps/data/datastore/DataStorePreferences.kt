@@ -3,6 +3,7 @@ package com.startup.simpleapps.data.datastore
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -36,8 +37,20 @@ class DataStorePreferences(context: Context) {
         }
     }
 
+    val isLogin: Flow<Boolean>
+        get() = dataStore.data.map { p ->
+            p[IsLogin] ?: false
+        }
+
+    suspend fun setLogin(value: Boolean) {
+        dataStore.edit { p ->
+            p[IsLogin] = value
+        }
+    }
+
     companion object {
         private val TOKEN = stringPreferencesKey("token")
         private val USERNAME = stringPreferencesKey("name")
+        private val IsLogin = booleanPreferencesKey("islogin")
     }
 }
