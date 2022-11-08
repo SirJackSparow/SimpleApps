@@ -1,5 +1,6 @@
 package com.startup.simpleapps.view.transaction
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -26,22 +27,26 @@ class TrandsactionViewModel(
 ) :
     ViewModel() {
 
-    val TransactionResponse = MutableLiveData<Transaction>()
-    val BalanceResponse = MutableLiveData<Balance>()
+    private val _transactionResponse = MutableLiveData<Transaction>()
+    val transactionResponse : LiveData<Transaction> = _transactionResponse
+
+
+    private val _balanceResponse = MutableLiveData<Balance>()
+     val balanceResponse : LiveData<Balance> = _balanceResponse
 
     fun getDataTransaction(auth: String) = viewModelScope.launch {
-        TransactionResponse.postValue(Loading)
+        _transactionResponse.postValue(Loading)
         when (val result = repoTransaction.getTransactionData(auth)) {
-            is Resource.Success -> TransactionResponse.postValue(result.data?.data?.let { Success(it) })
-            is Resource.Failed -> TransactionResponse.postValue(result.message?.let { Failed(it) })
+            is Resource.Success -> _transactionResponse.postValue(result.data?.data?.let { Success(it) })
+            is Resource.Failed -> _transactionResponse.postValue(result.message?.let { Failed(it) })
         }
     }
 
     fun getDataBAlance(auth: String) = viewModelScope.launch {
-        BalanceResponse.postValue(LoadingBalance)
+        _balanceResponse.postValue(LoadingBalance)
         when (val result = repoBalance.getBalanceData(auth)) {
-            is Resource.Success -> BalanceResponse.postValue(result.data?.let { SuccessBalance(it) })
-            is Resource.Failed -> BalanceResponse.postValue(result.message?.let { FailedBalance(it) })
+            is Resource.Success -> _balanceResponse.postValue(result.data?.let { SuccessBalance(it) })
+            is Resource.Failed -> _balanceResponse.postValue(result.message?.let { FailedBalance(it) })
         }
     }
 

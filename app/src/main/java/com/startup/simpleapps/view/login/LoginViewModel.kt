@@ -1,5 +1,6 @@
 package com.startup.simpleapps.view.login
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.startup.simpleapps.data.model.AuthModel
@@ -16,13 +17,14 @@ data class FailedMessage(val errorMessage: String) : Login()
 
 class LoginViewModel(private val repo: AuthRepo) : ViewModel() {
 
-    val loginState = MutableLiveData<Login>()
+    private val _loginState = MutableLiveData<Login>()
+    val loginState: LiveData<Login> = _loginState
 
     fun login(request: AuthRequest) = viewModelScope.launch {
-        loginState.postValue(Loading)
+        _loginState.postValue(Loading)
         when (val result = repo.login(request)) {
-            is Resource.Success -> loginState.postValue(result.data?.let { Success(it) })
-            is Resource.Failed -> loginState.postValue(result.message?.let { FailedMessage(it) })
+            is Resource.Success -> _loginState.postValue(result.data?.let { Success(it) })
+            is Resource.Failed -> _loginState.postValue(result.message?.let { FailedMessage(it) })
         }
     }
 }

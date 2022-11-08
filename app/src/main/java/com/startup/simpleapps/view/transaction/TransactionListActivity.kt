@@ -22,7 +22,7 @@ class TransactionListActivity : BaseActivity<ActivityTransactionListBinding>() {
     private val transactionAdapter = TransactionAdapter()
     override fun onInit() {
         onGetData()
-        vm.BalanceResponse.observe(this, { state ->
+        vm.balanceResponse.observe(this, { state ->
             when (state) {
                 is SuccessBalance -> {
                     CoroutineScope(Dispatchers.Main).launch {
@@ -36,7 +36,7 @@ class TransactionListActivity : BaseActivity<ActivityTransactionListBinding>() {
                 }
             }
         })
-        vm.TransactionResponse.observe(this, { state ->
+        vm.transactionResponse.observe(this, { state ->
             when (state) {
                 is Loading ->{
                     bind?.loading?.visible()

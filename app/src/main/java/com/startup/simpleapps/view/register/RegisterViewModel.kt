@@ -1,5 +1,6 @@
 package com.startup.simpleapps.view.register
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,13 +17,14 @@ data class Failed(val message: String) : Register()
 
 class RegisterViewModel(private val repo: AuthRepo) : ViewModel() {
 
-    val registerResponse = MutableLiveData<Register>()
+    private val _registerResponse = MutableLiveData<Register>()
+    val registerResponse : LiveData<Register> = _registerResponse
 
     fun register(request: AuthRequest) = viewModelScope.launch {
-        registerResponse.postValue(Loading)
+        _registerResponse.postValue(Loading)
         when (val result = repo.register(request)) {
-            is Resource.Success -> registerResponse.postValue(result.data?.let { Success(it) })
-            is Resource.Failed -> registerResponse.postValue(result.message?.let { Failed(it) })
+            is Resource.Success -> _registerResponse.postValue(result.data?.let { Success(it) })
+            is Resource.Failed -> _registerResponse.postValue(result.message?.let { Failed(it) })
         }
     }
 }
